@@ -1,7 +1,7 @@
  # CSC312 Practical Assignment 2
-     # Escape Room Management System - database client.
-     # Team:   Key Players
-     # Members: 4427029, 4483981, 4496326, 4412473
+ # Escape Room Management System - database client.
+ # Team:   Key Players
+ # Members: 4427029, 4483981, 4496326, 4412473
 
 
      import getpass
