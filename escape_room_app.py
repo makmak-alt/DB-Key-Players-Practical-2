@@ -1,32 +1,23 @@
-#!/usr/bin/env python3
-# ============================================================================
 # CSC312 Practical Assignment 2
-# Team:   Key Players
-# Members: 4427029, [ADD TEAMMATES' STUDENT NUMBERS]
-# File:   escape_room_app.py
-#
 # Escape Room Management System - database client.
-# Connects to the team's MySQL 8 server over SSL and lets the user run all
-# 11 project queries from report section 6.0 (2 simple, 4 medium, 5 complex),
-# or create a new booking inside a transaction (with rollback on failure).
-#
-# Usage:  python3 escape_room_app.py
-# Deps:   pip install mysql-connector-python
-# ============================================================================
+# Team:   Key Players
+# Members: 4427029, 4483981, 4496326, 4412473
+
 
 import getpass
 import sys
 import mysql.connector
 from mysql.connector import Error
+from streamlit import user
 
 DB_CONFIG = {
-    "host": "172.21.12.21",
-    "port": 27029,               # 2 + last four digits of student number
-    "user": "4427029",
-    "database": "CSC312_DB",
-    "ssl_verify_cert": False,    # server uses a self-signed certificate
-    "autocommit": True,          # SELECTs stay clean; booking uses an explicit transaction
-}
+        "host": "172.21.12.21",
+        "port": 20000,
+        "user": "",
+        "database": "CSC312_DB",
+        "ssl_verify_cert": False,
+        "autocommit": True,
+    }
 
 QUERIES = {
     "1": ("Horror rooms and their prices (SIMPLE)",
@@ -226,6 +217,15 @@ def create_booking(conn):
 
 
 def main():
+
+    user = input("Enter user: ")
+
+    lastFourDigits = user[-4:]
+    port = "2" + lastFourDigits
+
+    DB_CONFIG["user"] = user
+    DB_CONFIG["port"] = port
+
     conn = connect()
     menu = ("\nPick a query to run:\n"
             + "\n".join("  %-2s. %s" % (k, v[0]) for k, v in QUERIES.items())
